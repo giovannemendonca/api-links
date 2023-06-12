@@ -2,6 +2,7 @@ import { UserRepository } from '@/repositories/users-repository'
 import { User } from '@prisma/client'
 import { hash } from 'bcryptjs'
 import { UserAlredyExistError } from './erros/user-alredy-exists.error'
+import { sendEmail } from '@/utils/emailService'
 
 interface RegisterUserCaseRequest {
   name: string
@@ -33,6 +34,9 @@ export class RegisterUserUseCase {
 			name,
 			password_hash
 		})
+
+		const sendEmailWelcome = new sendEmail()
+		await sendEmailWelcome.welcome(email)
 
 		return {
 			user

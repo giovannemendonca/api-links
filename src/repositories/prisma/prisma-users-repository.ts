@@ -27,4 +27,23 @@ export class PrismaUserRepository implements UserRepository {
 		})
 		return user
 	}
+
+	forgotPassword(
+		email: string,
+		password_reset_token: string,
+		password_reset_expiry: Date
+	): Promise<User> {
+	
+		const user = prisma.user.update({
+			where: {
+				email
+			},
+			data: {
+				password_reset_token,
+				password_reset_expiry
+			}
+		})
+
+		return user
+	}
 }
