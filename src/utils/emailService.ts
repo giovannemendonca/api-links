@@ -18,14 +18,14 @@ export class sendEmail {
 			subject: 'Reset Password',
 
 			html: `
-						<h1>Redefinição de Senha</h1>
-						<p>Olá,</p>
-						<p>Você solicitou uma redefinição de senha. use o token a seguir para redefinir sua senha:</p>
-						<p>
-						<p>
-							<strong>Token-</strong>
-							<span>${token}</span>
-						</p>
+				<h1>Redefinição de Senha</h1>
+				<p>Olá,</p>
+				<p>Você solicitou uma redefinição de senha. use o token a seguir para redefinir sua senha:</p>
+				<p>
+				<p>
+					<strong>Token-</strong>
+					<span>${token}</span>
+				</p>
 
     `,
 			text: `${token}`
@@ -45,13 +45,13 @@ export class sendEmail {
 			text: 'Welcome to Links',
 			subject: 'Bem-vindo',
 			html: `<p>
-								<h1>Bem-vindo!</h1>
-								<p>Olá,</p>
-								<p>Bem-vindo ao nosso aplicativo! Estamos muito felizes em tê-lo conosco.</p>
-								<p>Aproveite todas as funcionalidades e recursos que oferecemos.</p>
-								<p>Se precisar de ajuda ou tiver alguma dúvida, entre em contato conosco.</p>
-								<p>Obrigado!</p>
-						</p>
+						<h1>Bem-vindo!</h1>
+						'<p>Olá,</p>
+						<p>Bem-vindo ao nosso aplicativo! Estamos muito felizes em tê-lo conosco.</p>
+						<p>Aproveite todas as funcionalidades e recursos que oferecemos.</p>
+						<p>Se precisar de ajuda ou tiver alguma dúvida, entre em contato conosco.</p>
+						<p>Obrigado!</p>
+					</p>
     `
 		}
 
