@@ -22,7 +22,7 @@ model User {
   password_hash         String
   password_reset_token  String?
   password_reset_expiry DateTime?
-  isAdmin               Role      @default(USER)
+  role                  Role      @default(USER)
   created_at            DateTime  @default(now())
   updated_at            DateTime  @updatedAt
 
