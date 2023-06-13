@@ -5,4 +5,5 @@ export interface UserRepository {
   findByEmail(email: string): Promise<User | null>
   findById(useId: string): Promise<User | null>
   forgotPassword(email: string,password_reset_token: string, password_reset_expiry: Date ): Promise<User>
+  resetPassword(password_hash: string, email: string): Promise<User>
 }

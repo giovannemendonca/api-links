@@ -9,7 +9,6 @@ interface RegisterUserCaseRequest {
   email: string
   password: string
 }
-
 interface RegisterUserCaseResponse {
   user: User
 }

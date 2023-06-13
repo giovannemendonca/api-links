@@ -19,8 +19,8 @@ export class PrismaUserRepository implements UserRepository {
 		return user
 	}
 
-	findById(useId: string): Promise<User | null> {
-		const user = prisma.user.findUnique({
+	async findById(useId: string): Promise<User | null> {
+		const user = await prisma.user.findUnique({
 			where: {
 				id: useId
 			}
@@ -28,13 +28,12 @@ export class PrismaUserRepository implements UserRepository {
 		return user
 	}
 
-	forgotPassword(
+	async forgotPassword(
 		email: string,
 		password_reset_token: string,
 		password_reset_expiry: Date
 	): Promise<User> {
-	
-		const user = prisma.user.update({
+		const user = await prisma.user.update({
 			where: {
 				email
 			},
@@ -44,6 +43,20 @@ export class PrismaUserRepository implements UserRepository {
 			}
 		})
 
+		return user
+	}
+
+	async resetPassword(password_hash: string, email: string): Promise<User> {
+		const user = await prisma.user.update({
+			where: {
+				email
+			},
+			data: {
+				password_hash,
+				password_reset_token: null,
+				password_reset_expiry: null
+			}
+		})
 		return user
 	}
 }

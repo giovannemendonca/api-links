@@ -14,8 +14,8 @@ export async function forgotPassword(
 	const { email } = forgotPasswordBodySchema.parse(request.body)
 
 	try {
-		const forgotPassWordUseCase = makeForgotPasswordUseCase()
-		await forgotPassWordUseCase.execute({ email })
+		const forgotPasswordUseCase = makeForgotPasswordUseCase()
+		await forgotPasswordUseCase.execute({ email })
 
 		return reply.status(200).send({ message: 'E-mail enviado com sucesso' })
 	} catch (error) {
