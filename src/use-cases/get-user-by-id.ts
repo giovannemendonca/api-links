@@ -6,7 +6,7 @@ interface GetUserById {
   id: string
 }
 interface GetUserByIdResponse {
-  user: User
+  user: Partial<User>
 }
 
 export class GetUserByIdUseCase {
