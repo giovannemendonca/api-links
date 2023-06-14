@@ -1,7 +1,7 @@
 import { UserRepository } from '@/repositories/users-repository'
 import { hash } from 'bcryptjs'
 import { InvalidTokenError } from './erros/invalid-token.error'
-import { ResourceNotFoundErro } from './erros/resource-not-found.error'
+import { ResourceNotFoundError } from './erros/resource-not-found.error'
 import { ExpiedTokenError } from './erros/expired-token.error'
 
 interface ResetPasswordRequest {
@@ -20,10 +20,10 @@ export class ResetPasswordUseCase {
 		const now = new Date()
 
 		if (!user) {
-			throw new ResourceNotFoundErro()
+			throw new ResourceNotFoundError()
 		}
 		if (!user.password_reset_expiry || !user.password_reset_token) {
-			throw new ResourceNotFoundErro()
+			throw new ResourceNotFoundError()
 		}
 		if (user.password_reset_token !== token) {
 			throw new InvalidTokenError()

@@ -6,4 +6,5 @@ export interface UserRepository {
   findById(useId: string): Promise<User | null>
   forgotPassword(email: string,password_reset_token: string, password_reset_expiry: Date ): Promise<User>
   resetPassword(password_hash: string, email: string): Promise<User>
+  listAll():Promise<Omit<User, 'password_hash' | 'password_reset_token' | 'password_reset_expiry' | 'role'>[]>
 }
