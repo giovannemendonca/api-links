@@ -25,4 +25,5 @@ export interface UserRepository {
       | 'role'
     >[]
   >
+  update(id: string, data: Prisma.UserUpdateInput): Promise<User>
 }

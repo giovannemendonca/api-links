@@ -19,14 +19,12 @@ export class PrismaUserRepository implements UserRepository {
 		return user
 	}
 
-	async findById(useId: string): Promise<
-Omit<
-		User,
-		| 'password_hash'
-		| 'password_reset_token'
-		| 'password_reset_expiry'
-		| 'role'
-	> | null> {
+	async findById(
+		useId: string
+	): Promise<Omit<
+    User,
+    'password_hash' | 'password_reset_token' | 'password_reset_expiry' | 'role'
+  > | null> {
 		const user = await prisma.user.findUnique({
 			where: {
 				id: useId
@@ -36,7 +34,7 @@ Omit<
 				name: true,
 				email: true,
 				created_at: true,
-				updated_at: true,
+				updated_at: true
 			}
 		})
 		return user
@@ -81,7 +79,7 @@ Omit<
       | 'password_reset_token'
       | 'password_reset_expiry'
       | 'role'
-    >[]	
+    >[]
     > {
 		const users = await prisma.user.findMany({
 			select: {
@@ -94,5 +92,15 @@ Omit<
 		})
 
 		return users
+	}
+
+	async update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
+		const user = await prisma.user.update({
+			where: {
+				id
+			},
+			data
+		})
+		return user
 	}
 }
