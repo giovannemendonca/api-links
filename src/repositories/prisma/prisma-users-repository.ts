@@ -19,10 +19,24 @@ export class PrismaUserRepository implements UserRepository {
 		return user
 	}
 
-	async findById(useId: string): Promise<User | null> {
+	async findById(useId: string): Promise<
+Omit<
+		User,
+		| 'password_hash'
+		| 'password_reset_token'
+		| 'password_reset_expiry'
+		| 'role'
+	> | null> {
 		const user = await prisma.user.findUnique({
 			where: {
 				id: useId
+			},
+			select: {
+				id: true,
+				name: true,
+				email: true,
+				created_at: true,
+				updated_at: true,
 			}
 		})
 		return user
