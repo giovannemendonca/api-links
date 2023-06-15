@@ -1,8 +1,8 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { makeDeleteUserUseCase } from '@/use-cases/factories/make-delete-user-use-case'
-import { InauthorizedError } from '@/use-cases/erros/unauthorized.error'
 import { UserNotFoundError } from '@/use-cases/erros/user-not-found.error'
 import { z } from 'zod'
+import { UnauthorizedError } from '@/use-cases/erros/unauthorized.error'
 
 export async function deleteUser(request: FastifyRequest, reply: FastifyReply) {
 	const deleteUserParamsSchema = z.object({
@@ -17,7 +17,7 @@ export async function deleteUser(request: FastifyRequest, reply: FastifyReply) {
 		await deleteUserUseCase.execute({ id, role })
 		reply.status(204).send()
 	} catch (error) {
-		if (error instanceof InauthorizedError) {
+		if (error instanceof UnauthorizedError) {
 			return reply.status(404).send({ message: error.message })
 		}
 		if (error instanceof UserNotFoundError) {

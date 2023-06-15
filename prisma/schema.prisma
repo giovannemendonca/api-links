@@ -37,7 +37,7 @@ model Link {
   description String?
   url         String
   image_url   String?
-  isPublic    Boolean  @default(false)
+  isPublic    Boolean  @default(true)
   created_at  DateTime @default(now())
 
   user    User   @relation(fields: [user_id], references: [id])

@@ -1,6 +1,6 @@
 import { UserRepository } from '@/repositories/users-repository'
 import { UserNotFoundError } from './erros/user-not-found.error'
-import { InauthorizedError } from './erros/unauthorized.error'
+import { UnauthorizedError } from './erros/unauthorized.error'
 
 interface DeleteUserUseCaseRequest {
   id: string;
@@ -15,7 +15,7 @@ export class DeleteUserUseCase {
 		console.log('role', role)
 
 		if (role !== 'ADMIN') {
-			throw new InauthorizedError()
+			throw new UnauthorizedError()
 		}
 
 		const user = await this.userRepository.findById(id)
