@@ -5,5 +5,5 @@ export interface LinkRepository{
   fetchLinks(userId: string): Promise<Link[] | null>
   update(id: string, data: Prisma.LinkUpdateInput): Promise<Link>
   findById(id: string): Promise<Link | null>
-
+  delete(id: string): Promise<void>
 }
