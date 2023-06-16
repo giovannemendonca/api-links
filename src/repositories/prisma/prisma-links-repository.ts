@@ -3,6 +3,7 @@ import { LinkRepository } from '../links-repository'
 import { prisma } from '@/lib/prisma'
 
 export class PrismaLinkRepository implements LinkRepository {
+
 	async create(data: Prisma.LinkUncheckedCreateInput): Promise<Link> {
 		const user = await prisma.link.create({
 			data
@@ -10,13 +11,24 @@ export class PrismaLinkRepository implements LinkRepository {
 		return user
 	}
 
-	async fetchLinks(id: string): Promise<Link[]> {
+	async fetchLinks(user_id: string): Promise<Link[] | null> {
 		const links = await prisma.link.findMany({
 			where: {
-				user_id: id
+				user_id
 			}
 		})
 
 		return links
+	}
+
+	async update(id: string, data: Prisma.LinkUpdateInput): Promise<Link> {
+		const link = await prisma.link.update({
+			where: {
+				id
+			},
+			data
+		})
+
+		return link
 	}
 }
