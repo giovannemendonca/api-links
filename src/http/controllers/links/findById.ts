@@ -1,5 +1,5 @@
 import { ResourceNotFoundError } from '@/use-cases/erros/resource-not-found.error'
-import { makeFindLinkByIdUseCase } from '@/use-cases/make-find-link-by-id-use-case'
+import { makeFindLinkByIdUseCase } from '@/use-cases/make-find-link-by-id'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 

@@ -1,5 +1,5 @@
 import { PrismaLinkRepository } from '@/repositories/prisma/prisma-links-repository'
-import { CreateLinkUseCase } from '../create-link-use-case'
+import { CreateLinkUseCase } from '../create-link'
 import { PrismaUserRepository } from '@/repositories/prisma/prisma-users-repository'
 
 

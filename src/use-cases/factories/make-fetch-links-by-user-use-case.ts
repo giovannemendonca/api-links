@@ -1,5 +1,5 @@
 import { PrismaLinkRepository } from '@/repositories/prisma/prisma-links-repository'
-import { FetchLinkByUserUseCase } from '../fetch-links-by-user-use-case'
+import { FetchLinkByUserUseCase } from '../fetch-links-by-user'
 import { PrismaUserRepository } from '@/repositories/prisma/prisma-users-repository'
 
 export function makeFetchLinksByUserUseCase() {
