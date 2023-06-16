@@ -1,10 +1,10 @@
 import { FastifyInstance } from 'fastify'
 import { verifyJwt } from '@/http/middlewares/verify-jwt'
 import { createLink } from './create'
-import { fetchLinksByUse } from './fetchLinksByUser'
+import { fetchLinksByUse } from './fetch-links-by-user'
 import { updateLinks } from './update'
-import { findById } from './findById'
-import { deleteLink } from './deleteLink'
+import { findById } from './find-by-id'
+import { deleteLink } from './delete-link'
 
 export async function linksRoutes(app: FastifyInstance) {
 	app
