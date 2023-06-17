@@ -29,18 +29,24 @@ export class InMemoryUsersRepository implements UserRepository {
 		if(!user) {
 			return null
 		}
-		
 		return user
 	}
 
-	findById(
-		useId: string
-	): Promise<Omit<
+	async findById(useId: string): Promise<Omit<
     User,
     'password_hash' | 'password_reset_token' | 'password_reset_expiry' | 'role'
   > | null> {
-		throw new Error('Method not implemented.')
+		
+		const user = this.users.find((user) => user.id === useId)
+
+		if(!user) {
+			return null
+		}
+
+		return user
 	}
+
+
 	forgotPassword(
 		email: string,
 		password_reset_token: string,
