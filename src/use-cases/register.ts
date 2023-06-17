@@ -34,8 +34,8 @@ export class RegisterUserUseCase {
 			password_hash
 		})
 
-		const sendEmailWelcome = new sendEmail()
-		await sendEmailWelcome.welcome(email)
+		// const sendEmailWelcome = new sendEmail()
+		// await sendEmailWelcome.welcome(email)
 
 		return {
 			user

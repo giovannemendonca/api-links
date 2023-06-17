@@ -57,7 +57,7 @@ export class InMemoryUsersRepository implements UserRepository {
 	resetPassword(password_hash: string, email: string): Promise<User> {
 		throw new Error('Method not implemented.')
 	}
-	listAll(): Promise<
+	async	listAll(): Promise<
     Omit<
       User,
       | 'password_hash'
@@ -66,8 +66,9 @@ export class InMemoryUsersRepository implements UserRepository {
       | 'role'
     >[]
     > {
-		throw new Error('Method not implemented.')
+		return this.users
 	}
+
 	update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
 		throw new Error('Method not implemented.')
 	}
