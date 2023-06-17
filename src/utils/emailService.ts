@@ -13,52 +13,50 @@ export class sendEmail {
 
 	async forgotPassword(email: string, token: string) {
 		const mailOptions = {
-			from: 'noreplay@links.com',
+			from: 'noreply@links.com',
 			to: email,
 			subject: 'Reset Password',
-
 			html: `
 				<h1>Redefinição de Senha</h1>
 				<p>Olá,</p>
-				<p>Você solicitou uma redefinição de senha. use o token a seguir para redefinir sua senha:</p>
+				<p>Você solicitou uma redefinição de senha. Use o token a seguir para redefinir sua senha:</p>
 				<p>
-				<p>
-					<strong>Token-</strong>
+					<strong>Token:</strong>
 					<span>${token}</span>
 				</p>
-
-    `,
+			`,
 			text: `${token}`
 		}
 
-		this.transporter.sendMail(mailOptions, (error) => {
-			if (error) {
-				throw new Error('Error sending email')
-			}
-		})
+		try {
+			await this.transporter.sendMail(mailOptions)
+		} catch (error) {
+			throw new Error('Error sending email')
+		}
 	}
 
 	async welcome(email: string) {
 		const mailOptions = {
-			from: 'noreplay@links.com',
+			from: 'noreply@links.com',
 			to: email,
-			text: 'Welcome to Links',
 			subject: 'Bem-vindo',
-			html: `<p>
-						<h1>Bem-vindo!</h1>
-						'<p>Olá,</p>
-						<p>Bem-vindo ao nosso aplicativo! Estamos muito felizes em tê-lo conosco.</p>
-						<p>Aproveite todas as funcionalidades e recursos que oferecemos.</p>
-						<p>Se precisar de ajuda ou tiver alguma dúvida, entre em contato conosco.</p>
-						<p>Obrigado!</p>
-					</p>
-    `
+			text: 'Welcome to Links',
+			html: `
+				<p>
+					<h1>Bem-vindo!</h1>
+					<p>Olá,</p>
+					<p>Bem-vindo ao nosso aplicativo! Estamos muito felizes em tê-lo conosco.</p>
+					<p>Aproveite todas as funcionalidades e recursos que oferecemos.</p>
+					<p>Se precisar de ajuda ou tiver alguma dúvida, entre em contato conosco.</p>
+					<p>Obrigado!</p>
+				</p>
+			`
 		}
 
-		this.transporter.sendMail(mailOptions, (error) => {
-			if (error) {
-				throw new Error('Error sending email')
-			}
-		})
+		try {
+			await this.transporter.sendMail(mailOptions)
+		} catch (error) {
+			throw new Error('Error sending email')
+		}
 	}
 }
