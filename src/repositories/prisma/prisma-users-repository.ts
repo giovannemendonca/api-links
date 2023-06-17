@@ -3,7 +3,7 @@ import { UserRepository } from '../users-repository'
 import { prisma } from '@/lib/prisma'
 
 export class PrismaUserRepository implements UserRepository {
-	create(data: Prisma.UserCreateInput): Promise<User> {
+	create(data: Prisma.UserCreateInput) {
 		const user = prisma.user.create({
 			data
 		})
