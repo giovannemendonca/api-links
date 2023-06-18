@@ -7,7 +7,6 @@ export class InMemoryUsersRepository implements UserRepository {
 	public users: User[] = []
 
 	async create(data: Prisma.UserCreateInput) {
-		
 		const user: User = {
 			id: String(randomUUID()),
 			name: data.name,
@@ -25,28 +24,28 @@ export class InMemoryUsersRepository implements UserRepository {
 	}
 
 	async findByEmail(email: string) {
-		const user =  this.users.find((user) => user.email === email)
+		const user = this.users.find((user) => user.email === email)
 
-		if(!user) {
+		if (!user) {
 			return null
 		}
 		return user
 	}
 
-	async findById(useId: string): Promise<Omit<
+	async findById(
+		useId: string
+	): Promise<Omit<
     User,
     'password_hash' | 'password_reset_token' | 'password_reset_expiry' | 'role'
   > | null> {
-		
 		const user = this.users.find((user) => user.id === useId)
 
-		if(!user) {
+		if (!user) {
 			return null
 		}
 
 		return user
 	}
-
 
 	forgotPassword(
 		email: string,
@@ -58,7 +57,7 @@ export class InMemoryUsersRepository implements UserRepository {
 	resetPassword(password_hash: string, email: string): Promise<User> {
 		throw new Error('Method not implemented.')
 	}
-	async	listAll(): Promise<
+	async listAll(): Promise<
     Omit<
       User,
       | 'password_hash'
@@ -72,7 +71,7 @@ export class InMemoryUsersRepository implements UserRepository {
 
 	async update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
 		const userIndex = this.users.findIndex((user) => user.id === id)
-	
+
 		if (userIndex === -1) {
 			throw new UserNotFoundError()
 		}
@@ -82,11 +81,18 @@ export class InMemoryUsersRepository implements UserRepository {
 			updated_at: new Date()
 		}
 		this.users[userIndex] = user as User
-		
+
 		return this.users[userIndex]
 	}
-	
-	delete(id: string): Promise<User> {
-		throw new Error('Method not implemented.')
+
+	async delete(id: string): Promise<User> {
+		const userIndex = this.users.findIndex((user) => user.id === id)
+
+		if (userIndex === -1) {
+			throw new UserNotFoundError()
+		}
+		const user = this.users.splice(userIndex, 1)[0]
+
+		return user
 	}
 }

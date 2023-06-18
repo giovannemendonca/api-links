@@ -11,8 +11,6 @@ export class DeleteUserUseCase {
 	constructor(private readonly userRepository: UserRepository) {}
 
 	async execute({id, role}: DeleteUserUseCaseRequest): Promise<void> {
-		
-		console.log('role', role)
 
 		if (role !== 'ADMIN') {
 			throw new UnauthorizedError()
