@@ -1,6 +1,7 @@
 import { Prisma, User } from '@prisma/client'
 import { UserRepository } from '../users-repository'
 import { randomUUID } from 'crypto'
+import { UserNotFoundError } from '@/use-cases/erros/user-not-found.error'
 
 export class InMemoryUsersRepository implements UserRepository {
 	public users: User[] = []
@@ -69,9 +70,22 @@ export class InMemoryUsersRepository implements UserRepository {
 		return this.users
 	}
 
-	update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
-		throw new Error('Method not implemented.')
+	async update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
+		const userIndex = this.users.findIndex((user) => user.id === id)
+	
+		if (userIndex === -1) {
+			throw new UserNotFoundError()
+		}
+		const user = {
+			...this.users[userIndex],
+			...data,
+			updated_at: new Date()
+		}
+		this.users[userIndex] = user as User
+		
+		return this.users[userIndex]
 	}
+	
 	delete(id: string): Promise<User> {
 		throw new Error('Method not implemented.')
 	}
