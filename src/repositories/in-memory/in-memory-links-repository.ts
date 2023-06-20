@@ -1,4 +1,4 @@
-import { Prisma, Link } from '@prisma/client'
+import { Prisma, Link, User } from '@prisma/client'
 import { LinkRepository } from '../links-repository'
 import { randomUUID } from 'crypto'
 
@@ -22,19 +22,34 @@ export class InMemoryLinksRepository implements LinkRepository{
 
 		return link
 	}
+	async delete(id: string): Promise<Link | null> {
+		const link = this.links.find(link => link.id === id)
 
+		if(!link) return null
+
+		this.links = this.links.filter(link => link.id !== id)
+
+		return link
+		
+	}	
   
+	async findById(id: string): Promise<Link | null> {
+		
+		const link = this.links.find(link => link.id === id)
+
+		if(!link) return null
+
+		return link
+	}
+
 	fetchLinks(userId: string): Promise<Link[] | null> {
 		throw new Error('Method not implemented.')
 	}
 	update(id: string, data: Prisma.LinkUpdateInput): Promise<Link> {
 		throw new Error('Method not implemented.')
 	}
-	findById(id: string): Promise<Link | null> {
-		throw new Error('Method not implemented.')
-	}
-	delete(id: string): Promise<void> {
-		throw new Error('Method not implemented.')
-	}
+
+
+
 
 }

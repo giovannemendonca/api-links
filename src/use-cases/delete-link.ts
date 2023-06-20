@@ -15,17 +15,17 @@ export class DeleteLinkUseCase {
 
 	async execute({ link_id, user_id, userAuth }: DeleteLinkRequest) {
 		const link = await this.linksRepository.findById(link_id)
-		const user = await this.useRepository.findById(user_id)
-
-		if (!user) {
-			throw new UserNotFoundError()
-		}
+		
 		if (!link) {
 			throw new ResourceNotFoundError()
 		}
 		if (user_id !== userAuth) {
 			throw new UnauthorizedError()
 		}
-		await this.linksRepository.delete(link_id)
+		const linkDeleted =  await this.linksRepository.delete(link_id)
+
+		return {
+			linkDeleted,
+		}
 	}
 }
