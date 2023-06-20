@@ -1,6 +1,5 @@
 import { LinkRepository } from '@/repositories/links-repository'
 import { Link } from '@prisma/client'
-import { ResourceNotFoundError } from './erros/resource-not-found.error'
 import { UserRepository } from '@/repositories/users-repository'
 import { UserNotFoundError } from './erros/user-not-found.error'
 
@@ -9,7 +8,7 @@ interface FetchLinksByUserRequest {
 }
 
 interface FetchLinksUseCaseResponse {
-  links: Link[]
+  links: Link[] 
 }
 
 export class FetchLinkByUserUseCase {
@@ -26,9 +25,7 @@ export class FetchLinkByUserUseCase {
 		}
 
 		const links = await this.linkRepository.fetchLinks(user_id)
-		if (!links) {
-			throw new ResourceNotFoundError()
-		}
+
 
 		return {
 			links
