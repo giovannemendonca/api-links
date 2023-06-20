@@ -23,26 +23,27 @@ export class UpdateLinkUseCase {
 	) {}
 
 	async execute({
-		linkId: LinkId,
+		linkId,
 		userId,
 		authId,
 		data
 	}: UpdateLinkUSeCaseRequest): Promise<UpdateLinkUseCaseResponse> {
 		const user = await this.userRepository.findById(userId)
+		const hasLink = await this.linkRepository.findById(linkId)
 
-	
 		if (!user) {
 			throw new UserNotFoundError()
 		}
 		if(authId !== userId){
 			throw new UnauthorizedError()
 		}
-		const links = await this.linkRepository.update(LinkId, data)
-
-		if(!links){
+		if(!hasLink){
 			throw new ResourceNotFoundError()
 		}
-		console.log(links)
+		
+		const links = await this.linkRepository.update(linkId, data)
+
+	
 		
 		return { 
 			links 

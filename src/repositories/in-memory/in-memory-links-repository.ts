@@ -1,6 +1,7 @@
-import { Prisma, Link, User } from '@prisma/client'
+import { Prisma, Link } from '@prisma/client'
 import { LinkRepository } from '../links-repository'
 import { randomUUID } from 'crypto'
+import { ResourceNotFoundError } from '@/use-cases/erros/resource-not-found.error'
 
 export class InMemoryLinksRepository implements LinkRepository {
 	public links: Link[] = []
@@ -42,8 +43,19 @@ export class InMemoryLinksRepository implements LinkRepository {
 		const links = this.links.filter((link) => link.user_id === userId)
 		return links
 	}
-	
-	update(id: string, data: Prisma.LinkUpdateInput): Promise<Link> {
-		throw new Error('Method not implemented.')
+
+	async update(id: string, data: Prisma.LinkUpdateInput): Promise<Link> {
+		const indexLink = this.links.findIndex((link) => link.id === id)
+
+		if (indexLink === -1) throw new ResourceNotFoundError()
+
+		const link = {
+			...this.links[indexLink],
+			...data
+		}
+
+		this.links[indexLink] = link as Link
+
+		return this.links[indexLink]
 	}
 }
